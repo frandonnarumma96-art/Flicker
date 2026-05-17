@@ -1,17 +1,38 @@
-export function Navbar () {
+export function Navbar() {
+
     return (
         <div>
+
             <nav>
-<ul>
-    <li>Film</li>
-    <li>Serie Tv</li>
-    <li class="cuore">
-        <img src=""></img>
-    </li tag a e poi tag li con l immagine >
-    <li>Da vedere/Lista</li>
-    <li>Account</li>
-</ul>
+
+                <ul>
+
+                    <li>
+                        <a href="">Film</a>
+                    </li>
+
+                    <li>
+                        <a href="">Serie Tv</a>
+                    </li>
+
+                    <li className="cuore">
+                        <a href="">
+                            <img src="" alt="cuore" />
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="">Da vedere/Lista</a>
+                    </li>
+
+                    <li>
+                        <a href="">Account</a>
+                    </li>
+
+                </ul>
+
             </nav>
+
         </div>
     )
 }
