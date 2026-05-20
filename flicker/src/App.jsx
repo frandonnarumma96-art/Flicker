@@ -1,8 +1,15 @@
 import Button from './components/InterfacciaUtente/button'
+import { Registrazione } from './servizi/registrazione'
+
+
 
 function App() {
   return (
-    <Button text="Test" />
+  <>
+    
+    <Registrazione/>
+    
+  </>
   )
 }
 
