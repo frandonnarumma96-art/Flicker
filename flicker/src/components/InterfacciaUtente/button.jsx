@@ -1,8 +1,8 @@
 function Button({ text }) {
   return (
-    <button>
+    <a>
       {text}
-    </button>
+    </a>
   )
 }
 

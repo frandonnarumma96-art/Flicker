@@ -23,9 +23,17 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
+
+
+
 # Segreti e variabili d'ambiente
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+=======
+.env
+>>>>>>> navbar
+>>>>>>> eb8b43276ae15f22e1c807955292e08512afa1fb
