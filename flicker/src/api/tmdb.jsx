@@ -29,6 +29,12 @@ export async function getGenres() {
   return dati.genres;
 }
 
+export async function searchMovies(query) {
+  if (!query) return [];
+  const risposta = await fetch(`${BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=it-IT`, option);
+  const dati = await risposta.json();
+  return dati.results;
+}
 
 export function getImageUrl(path) {
   return `https://image.tmdb.org/t/p/w500${path}`;
