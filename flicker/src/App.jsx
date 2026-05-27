@@ -1,14 +1,22 @@
 import Button from './components/InterfacciaUtente/button'
-import { Navbar } from './components/InterfacciaUtente/navbar'
-import Card from './components/InterfacciaUtente/card'
-import  './index.css'
-function App() {
-  return (<div>
-    {/* <Button text="Test" /> */}
-    <Navbar></Navbar>
-    {/* <Card></Card> */}
-  </div>
+import { StepGeneri } from './servizi/generi'
+import { StepFilmCuore } from './servizi/GiaVisti'
+import { Login } from './servizi/Login'
+import { StepPiattaforme } from './servizi/piattaforme'
+import { Registrazione } from './servizi/registrazione'
+import { StepProfilo } from './servizi/username'
 
+
+
+
+
+function App() {
+  return (
+  <>
+    
+    <Registrazione/>
+    
+  </>
   )
 }
 
