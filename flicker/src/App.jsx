@@ -15,6 +15,11 @@ function App() {
   <>
     
     <Registrazione/>
+    <Login/>
+    <StepProfilo/>
+    <StepPiattaforme/>
+    <StepGeneri/>
+    <StepFilmCuore/>
     
   </>
   )
