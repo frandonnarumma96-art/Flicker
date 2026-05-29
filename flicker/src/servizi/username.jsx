@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 
 export function StepProfilo({ userProfile, setUserProfile, onNext, onSkip }) {
     const [avatar, setAvatar] = useState(null)
@@ -6,6 +6,9 @@ export function StepProfilo({ userProfile, setUserProfile, onNext, onSkip }) {
     function handleChange(event) {
         setUserProfile((prev) => ({ ...prev, username: event.target.value }))
     }
+      useEffect(() => {
+        localStorage.setItem("userProfile", JSON.stringify(userProfile))
+    }, [userProfile])
 
     const avatarOpzioni = ["🎬", "🍿", "👽", "🚀", "🎥"]
 
@@ -81,7 +84,7 @@ export function StepProfilo({ userProfile, setUserProfile, onNext, onSkip }) {
                             <span className="absolute left-4 text-sm font-bold text-gray-600">@</span>
                             <input 
                                 type="text" 
-                                value={userProfile?.username || ''} 
+                                value={userProfile.username || ''} 
                                 onChange={handleChange} 
                                 placeholder="tuo_username"
                                 className="w-full pl-9 pr-4 py-3.5 bg-[#0b0411]/60 border border-gray-800 rounded-xl text-gray-300 placeholder:text-gray-700 focus:outline-none focus:border-cyan-500 text-sm transition-colors"
