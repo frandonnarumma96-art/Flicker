@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import logo from "../importati/logo.png"
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 export function Registrazione() {
+    const navigate = useNavigate(); 
   
     const [users, setUsers] = useState(() => {
         return JSON.parse(localStorage.getItem("users")) || []
     })
 
-   
     const [user, setUser] = useState({
         nome: '',
         cognome: '',
@@ -20,7 +22,6 @@ export function Registrazione() {
     const [error, setError] = useState(null)
     const [message, setMessage] = useState(null)
 
-  
     useEffect(() => {
         localStorage.setItem("users", JSON.stringify(users))
     }, [users])
@@ -35,24 +36,26 @@ export function Registrazione() {
         setError(null)
         setMessage(null)
 
-      
         if (user.password !== user.confermaPassword) {
             setError("Le password non corrispondono! ")
             return
         }
 
-    
         const userExist = users.find((u) => u.email === user.email)
         if (userExist) {
             setError("Utente già registrato con questa email ")
             return
         }
 
-     
-        setUsers((prev) => [...prev, user])
-        setMessage("Registrazione effettuata con successo! ")
         
-      
+        setUsers((prev) => [...prev, user])
+        
+        
+        localStorage.setItem("currentUserEmail", user.email);
+        
+        setMessage("Registrazione effettuata con successo! ");
+        
+    
         setUser({
             nome: '',
             cognome: '',
@@ -61,6 +64,11 @@ export function Registrazione() {
             password: '',
             confermaPassword: '',
         })
+
+        
+        setTimeout(() => {
+            navigate("/onboarding/step1");
+        }, 800); 
     }
 
     function handleSocialLogin(provider) {
@@ -70,8 +78,13 @@ export function Registrazione() {
         const userExist = users.find((u) => u.email === socialEmail)
         
         if (userExist) {
-            setMessage(`Questo account ${provider} è già registrato! `)
-            return
+            
+            localStorage.setItem("currentUserEmail", socialEmail);
+            setMessage(`Accesso con ${provider} effettuato!`);
+            setTimeout(() => {
+                navigate("/onboarding/step1");
+            }, 800);
+            return;
         }
 
         const socialUser = { 
@@ -84,7 +97,15 @@ export function Registrazione() {
         }
 
         setUsers((prev) => [...prev, socialUser])
-        setMessage(`Registrazione con ${provider} completata!`)
+     
+        localStorage.setItem("currentUserEmail", socialEmail);
+        
+        setMessage(`Registrazione con ${provider} completata! `);
+
+      
+        setTimeout(() => {
+            navigate("/onboarding/step1");
+        }, 800);
     }
 
     return (
@@ -100,23 +121,22 @@ export function Registrazione() {
                 </p>
             </div>
 
-            
             <div className="w-full max-w-sm space-y-6">
                 
-                {/* Titolo della Schermata */}
-               <div className="text-center space-y-2">
-                <h2 className="text-xs font-bold tracking-[0.3em] text-cyan-400/80 uppercase">
-                    Crea un nuovo account
-                </h2>
-                <p className="text-xs text-gray-500">
-                    Hai già un account?{' '}
-                    <a href="#login" className="text-cyan-400 font-bold hover:underline transition-all">
-                        Accedi
-                    </a>
-                </p>
-            </div>
+                
+                <div className="text-center space-y-2">
+                    <h2 className="text-xs font-bold tracking-[0.3em] text-cyan-400/80 uppercase">
+                        Crea un nuovo account
+                    </h2>
+                    <p className="text-xs text-gray-500 mt-4">
+                    Hai già un account?{" "}
+   
+                     <Link to="/login" className="text-cyan-400 hover:underline font-bold">
+                     Accedi
+                        </Link>
+                        </p>
+                </div>
 
-               
                 {error && (
                     <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl font-medium tracking-wide text-center animate-fadeIn">
                         {error}
@@ -128,7 +148,7 @@ export function Registrazione() {
                     </div>
                 )}
 
-                {/* Form di Registrazione  */}
+               
                 <form onSubmit={handleInviaForm} className="space-y-5">
                     
                     <div className="space-y-1">
@@ -179,7 +199,6 @@ export function Registrazione() {
                         />
                     </div>
 
-                    {/* Bottone Crea Account */}
                     <button 
                         type="submit"
                         className="w-full py-4 mt-2 bg-cyan-500 text-[#06000c] font-black rounded-xl text-xs tracking-widest uppercase flex items-center justify-center transition-all hover:bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
@@ -188,22 +207,19 @@ export function Registrazione() {
                     </button>
                 </form>
 
-                {/* Separatore */}
+             
                 <div className="flex items-center gap-4 py-1">
                     <div className="flex-1 h-px bg-gray-900"></div>
                     <span className="text-[9px] text-gray-600 font-bold tracking-widest">OPPURE</span>
                     <div className="flex-1 h-px bg-gray-900"></div>
                 </div>
 
-                {/* Social Login Buttons */}
                 <div className="space-y-3">
-                    {/* Google */}
                     <button type="button" onClick={() => handleSocialLogin('Google')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-red-500 text-xs font-bold">G</span>
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Google</span>
                     </button>
 
-                    {/* Apple */}
                     <button type="button" onClick={() => handleSocialLogin('Apple')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411]">
                             <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,14 +229,11 @@ export function Registrazione() {
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Apple</span>
                     </button>
 
-                    {/* Facebook */}
                     <button type="button" onClick={() => handleSocialLogin('Facebook')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-blue-500 text-xs font-bold">f</span>
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Facebook</span>
                     </button>
                 </div>
-
-                
 
             </div>
         </div>
