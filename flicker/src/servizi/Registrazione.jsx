@@ -199,36 +199,33 @@ export function Registrazione() {
                 <div className="space-y-3">
                     {/* Google */}
                     <button type="button" onClick={() => handleSocialLogin('Google')}
-                        className="relative w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
-
+                        className="relative w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-red-500 text-xs font-bold">G</span>
-
-                        <span className="absolute inset-0 flex items-center justify-center text-xs text-gray-400 font-bold tracking-wide pointer-events-none">
-                            Continua con Google
-                        </span>
+                        <span className="text-xs text-gray-400 font-bold tracking-wide">Continua con Google</span>
                     </button>
+            
 
-                    {/* Apple */}
-                    <button type="button" onClick={() => handleSocialLogin('Apple')} className="relative w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
+            {/* Apple */}
+            <button type="button" onClick={() => handleSocialLogin('Apple')} className="relative w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
 
-                        <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411]">
-                            <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.666 9.875c.012 1.711 1.488 2.28 1.5 2.288-.01.037-.23 1.15-.996 2.263-.665.965-1.357 1.926-2.43 1.946-1.053.018-1.393-.615-2.593-.615-1.2 0-1.579.615-2.576.632-1.071.018-1.871-1.062-2.538-2.025-1.365-1.97-2.403-5.568-1-8 1.403-2.432 1.905-2.53 3.65-2.518.825 0 1.6.571 2.106.571.503 0 1.442-.681 2.453-.578.423.018 1.61.171 2.373 1.285-.06.037-.08.05-.125.07-.468.214-1.32.743-1.325 2.241zM10.166.5C10.166 1.701 9.088 2.768 7.828 2.768c0-.053-.002-.107-.002-.16 0-1.127 1.055-2.316 2.176-2.316h.163z" fill="white" />
-                            </svg>
-                        </span>
-                        <span className="absolute inset-0 flex items-center justify-center text-xs text-gray-400 font-bold tracking-wide pointer-events-none">Continua con Apple</span>
-                    </button>
+                <span className= "w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411]">
+                    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.666 9.875c.012 1.711 1.488 2.28 1.5 2.288-.01.037-.23 1.15-.996 2.263-.665.965-1.357 1.926-2.43 1.946-1.053.018-1.393-.615-2.593-.615-1.2 0-1.579.615-2.576.632-1.071.018-1.871-1.062-2.538-2.025-1.365-1.97-2.403-5.568-1-8 1.403-2.432 1.905-2.53 3.65-2.518.825 0 1.6.571 2.106.571.503 0 1.442-.681 2.453-.578.423.018 1.61.171 2.373 1.285-.06.037-.08.05-.125.07-.468.214-1.32.743-1.325 2.241zM10.166.5C10.166 1.701 9.088 2.768 7.828 2.768c0-.053-.002-.107-.002-.16 0-1.127 1.055-2.316 2.176-2.316h.163z" fill="white" />
+                    </svg>
+                </span>
+                <span className="text-xs text-gray-400 font-bold tracking-wide">Continua con Apple</span>
+            </button>
 
-                    {/* Facebook */}
-                    <button type="button" onClick={() => handleSocialLogin('Facebook')} className="relative w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
-                        <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-blue-500 text-xs font-bold">f</span>
-                        <span className="absolute inset-0 flex items-center justify-center text-xs text-gray-400 font-bold tracking-wide pointer-events-none">Continua con Facebook</span>
-                    </button>
-                </div>
-
-
-
-            </div>
+            {/* Facebook */}
+            <button type="button" onClick={() => handleSocialLogin('Facebook')}  className="relative w-full flex items-center justify-center gap-3 py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
+                <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-blue-500 text-xs font-bold">f</span>
+                <span className="text-xs text-gray-400 font-bold tracking-wide">Continua con Facebook</span>
+            </button>
         </div>
+
+
+
+            </div >
+        </div >
     )
 }
