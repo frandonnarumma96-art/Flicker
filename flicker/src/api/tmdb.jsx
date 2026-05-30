@@ -59,3 +59,14 @@ export async function getTVGenres() {
   const dati = await risposta.json();
   return dati.genres;
 }
+export async function searchTV(query) {
+  if (!query) return [];
+
+  const risposta = await fetch(
+    `${BASE_URL}/search/tv?query=${encodeURIComponent(query)}&language=it-IT`,
+    option
+  );
+
+  const dati = await risposta.json();
+  return dati.results;
+}
