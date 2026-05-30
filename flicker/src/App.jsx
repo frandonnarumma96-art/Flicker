@@ -15,7 +15,7 @@ function App() {
   return (
     <>
 
-      {/* <Registrazione/>
+   <Registrazione/>
     <Login/>
     <StepProfilo 
     userProfile={userProfile} 
@@ -23,7 +23,7 @@ function App() {
 />
     <StepPiattaforme/>
     <StepGeneri/>
-    <StepFilmCuore/> */}
+    <StepFilmCuore/> 
     <FilmCard></FilmCard>
     <SerieCard></SerieCard>
       
