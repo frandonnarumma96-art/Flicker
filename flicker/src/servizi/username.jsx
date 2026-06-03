@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // 🌟 Assicurati di importare useEffect
 import { useNavigate } from "react-router-dom"; 
 import { useOnboarding } from "../context/stepContexst"; 
 
@@ -7,16 +7,28 @@ export function StepProfilo() {
     const { onboardingData, setOnboardingData } = useOnboarding();
 
     
-    const [usernameLocale, setUsernameLocale] = useState(() => {
-        return onboardingData?.username || "";
-    });
+    const [usernameLocale, setUsernameLocale] = useState(onboardingData?.username || "");
+    const [avatarSelezionato, setAvatarSelezionato] = useState(onboardingData?.avatar || "🍿");
 
     const avatarDisponibili = ["🍿", "🎬", "🎥", "🎭", "👾", "🚀"];
+
     
-    
-    const [avatarSelezionato, setAvatarSelezionato] = useState(() => {
-        return onboardingData?.avatar || "🍿";
-    });
+    useEffect(() => {
+        const nomeRegistrato = localStorage.getItem("tempRegisterNome") || "";
+        const cognomeRegistrato = localStorage.getItem("tempRegisterCognome") || "";
+        
+     
+        if (nomeRegistrato || cognomeRegistrato) {
+            const nomeCompleto = `${nomeRegistrato} ${cognomeRegistrato}`.trim();
+            setUsernameLocale(nomeCompleto);
+            
+            
+            setOnboardingData(prev => ({
+                ...prev,
+                username: nomeCompleto
+            }));
+        }
+    }, []); 
 
     function handleAvanti() {
         setOnboardingData(prev => ({ 
@@ -24,7 +36,10 @@ export function StepProfilo() {
             username: usernameLocale, 
             avatar: avatarSelezionato 
         }));
-        
+   
+        localStorage.removeItem("tempRegisterNome");
+        localStorage.removeItem("tempRegisterCognome");
+
         navigate("/onboarding/step2");
     }
 
@@ -35,7 +50,7 @@ export function StepProfilo() {
     return (
         <div className="flex flex-col items-center min-h-screen bg-[#06000c] text-white p-6 font-sans select-none">
             
-            
+            {/* Barra di Avanzamento */}
             <div className="w-full max-w-sm mt-8 mb-6">
                 <div className="flex gap-2 mb-3">
                     <div className="flex-1 h-1 bg-cyan-500 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]"></div>
@@ -56,7 +71,7 @@ export function StepProfilo() {
                 </div>
             </div>
 
-            
+            {/* Intestazione */}
             <div className="w-full max-w-sm text-left mb-8 space-y-2">
                 <h1 className="text-3xl font-bold tracking-wide leading-tight">
                     Personalizza il <br />
@@ -65,15 +80,15 @@ export function StepProfilo() {
                     </span>
                 </h1>
                 <p className="text-xs text-gray-500 font-medium">
-                    Scegli come farti riconoscere dalla community.
+                    Abbiamo inserito il tuo nome reale. Modificalo pure se preferisci usare un nickname!
                 </p>
             </div>
 
-            
+            {/* Form Box */}
             <div className="w-full max-w-sm flex-1 flex flex-col justify-between pb-6">
                 <div className="space-y-6">
                     
-                    
+                    {/* Selezione Avatar */}
                     <div className="space-y-3 flex flex-col items-center">
                         <label className="text-[10px] font-bold text-gray-500 tracking-widest uppercase self-start">
                             FOTO PROFILO / AVATAR
@@ -86,7 +101,7 @@ export function StepProfilo() {
                                 <button 
                                     key={emoji}
                                     type="button"
-                                    onClick={() => setAvatarSelezionato(emoji)} // Corretto in setAvatarSelezionato
+                                    onClick={() => setAvatarSelezionato(emoji)}
                                     className={`w-10 h-10 rounded-xl bg-[#0b0411]/40 border ${avatarSelezionato === emoji ? 'border-cyan-500 text-base scale-110' : 'border-gray-800'} flex items-center justify-center transition-all`}
                                 >
                                     {emoji}
@@ -95,6 +110,7 @@ export function StepProfilo() {
                         </div>
                     </div>
 
+                    {/* Input Username */}
                     <div className="space-y-1">
                         <label className="text-[10px] font-bold text-gray-500 tracking-widest uppercase">USERNAME</label>
                         <div className="relative flex items-center">
@@ -111,7 +127,7 @@ export function StepProfilo() {
 
                 </div>
 
-                
+                {/* Pulsante Avanti */}
                 <button 
                     type="button"
                     onClick={handleAvanti} 
@@ -119,12 +135,12 @@ export function StepProfilo() {
                     className="w-full py-4 bg-[#0b0411]/60 border border-gray-800 hover:border-cyan-500/50 disabled:opacity-30 disabled:hover:border-gray-800 text-gray-400 hover:text-cyan-400 font-bold rounded-xl text-xs tracking-widest uppercase flex items-center justify-center gap-2 transition-all"
                 >
                     AVANTI 
-                    <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/xl">
                         <path d="M1 6H13M13 6L8 1M13 6L8 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </button>
             </div>
 
         </div>
-    )
+    );
 }

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import logo from "../importati/logo.png"; 
-import { Link, useNavigate } from "react-router-dom"; // Importiamo anche useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
 
 export function Login() {
-    const navigate = useNavigate(); // Inizializziamo il navigatore
+    const navigate = useNavigate(); 
 
     const [users, setUsers] = useState(() => {
         return JSON.parse(localStorage.getItem("users")) || []
@@ -141,9 +141,10 @@ export function Login() {
                 
                     <button type="button" onClick={() => handleSocialLogin('Google')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-red-500 text-xs font-bold">G</span>
-                        <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Google</span>
+                        <span className="text-xs text-gray-400 font-bold tracking-wide">Continua con Google</span>
                     </button>
 
+                    {/* Apple */}
                     <button type="button" onClick={() => handleSocialLogin('Apple')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411]">
                             <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,6 +154,7 @@ export function Login() {
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Apple</span>
                     </button>
 
+                    {/* Facebook */}
                     <button type="button" onClick={() => handleSocialLogin('Facebook')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-blue-500 text-xs font-bold">f</span>
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Facebook</span>

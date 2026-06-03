@@ -47,15 +47,17 @@ export function Registrazione() {
             return
         }
 
-        
         setUsers((prev) => [...prev, user])
-        
         
         localStorage.setItem("currentUserEmail", user.email);
         
+        
+        localStorage.setItem("tempRegisterNome", user.nome);
+        localStorage.setItem("tempRegisterCognome", user.cognome);
+        localStorage.removeItem("flicker_onboarding_data");
+        
         setMessage("Registrazione effettuata con successo! ");
         
-    
         setUser({
             nome: '',
             cognome: '',
@@ -65,7 +67,6 @@ export function Registrazione() {
             confermaPassword: '',
         })
 
-        
         setTimeout(() => {
             navigate("/onboarding/step1");
         }, 800); 
@@ -78,8 +79,11 @@ export function Registrazione() {
         const userExist = users.find((u) => u.email === socialEmail)
         
         if (userExist) {
-            
             localStorage.setItem("currentUserEmail", socialEmail);
+            
+            localStorage.setItem("tempRegisterNome", userExist.nome || "Utente");
+            localStorage.setItem("tempRegisterCognome", userExist.cognome || provider);
+
             setMessage(`Accesso con ${provider} effettuato!`);
             setTimeout(() => {
                 navigate("/onboarding/step1");
@@ -100,9 +104,13 @@ export function Registrazione() {
      
         localStorage.setItem("currentUserEmail", socialEmail);
         
+   
+        localStorage.setItem("tempRegisterNome", socialUser.nome);
+        localStorage.setItem("tempRegisterCognome", socialUser.cognome);
+        localStorage.removeItem("flicker_onboarding_data");
+
         setMessage(`Registrazione con ${provider} completata! `);
 
-      
         setTimeout(() => {
             navigate("/onboarding/step1");
         }, 800);
