@@ -80,6 +80,7 @@ export function SerieCard() {
                                         year={s.first_air_date?.slice(0, 4)}
                                     />
                                 ))}
+                                
                             </div>
                         </div>
                     );
