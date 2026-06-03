@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import logo from "../importati/logo.png"; 
+import { Link, useNavigate } from "react-router-dom"; // Importiamo anche useNavigate
 
 export function Login() {
+    const navigate = useNavigate(); // Inizializziamo il navigatore
 
     const [users, setUsers] = useState(() => {
         return JSON.parse(localStorage.getItem("users")) || []
@@ -21,33 +23,44 @@ export function Login() {
     }
 
     function handleLogin(event) {
-        event.preventDefault()
-        setError(null)
-        setMessage(null)
+    event.preventDefault()
+    setError(null)
+    setMessage(null)
 
-        const userExist = users.find((u) => u.email === user.email && u.password === user.password)
-        
-        if (userExist) {
-            setMessage(`Bentornato ${userExist.nome || 'Utente'}!  Accesso eseguito con successo.`)
-            localStorage.setItem("isLoggedIn", "true")
-            
-        } else {
-            setError("Email o password errate! ")
-            localStorage.setItem("isLoggedIn", "false")
-        }
-    }
-
-    function handleSocialLogin(provider) {
-        setError(null)
-        
-        setMessage(`Accesso effettuato tramite ${provider}! `)
+    const userExist = users.find((u) => u.email === user.email && u.password === user.password)
+    
+    if (userExist) {
+        setMessage(`Bentornato ${userExist.nome || 'Utente'}! Accesso eseguito con successo. 🎉`)
         localStorage.setItem("isLoggedIn", "true")
-    }
+        localStorage.setItem("currentUserEmail", userExist.email)
 
+ 
+        setTimeout(() => {
+            navigate("/home");
+        }, 850);
+        
+    } else {
+        setError("Email o password errate! ")
+        localStorage.setItem("isLoggedIn", "false")
+    }
+}
+   function handleSocialLogin(provider) {
+    setError(null)
+    const socialEmail = `${provider.toLowerCase()}.user@example.com`
+    
+    setMessage(`Accesso effettuato tramite ${provider}! `)
+    localStorage.setItem("isLoggedIn", "true")
+    localStorage.setItem("currentUserEmail", socialEmail)
+
+    
+    setTimeout(() => {
+        navigate("/home");
+    }, 850);
+}
     return (
         <div className="flex flex-col items-center min-h-screen bg-[#06000c] text-white p-6 font-sans select-none">
             
-         
+           
             <div className="flex flex-col items-center mt-12 mb-8">
                 <img src={logo} alt="Logo Flicker" className="w-16 h-16 object-contain mb-4" />
                 <h1 className="text-4xl font-bold tracking-[0.2em] text-cyan-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.7)]">
@@ -58,9 +71,7 @@ export function Login() {
                 </p>
             </div>
 
-   
             <div className="w-full max-w-sm space-y-6">
-                
                 
                 <div className="text-center">
                     <h2 className="text-xs font-bold tracking-[0.3em] text-cyan-400/80 uppercase">
@@ -68,7 +79,7 @@ export function Login() {
                     </h2>
                 </div>
 
-         
+                
                 {error && (
                     <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-xs rounded-xl font-medium tracking-wide text-center animate-fadeIn">
                         {error}
@@ -80,10 +91,8 @@ export function Login() {
                     </div>
                 )}
 
-                
                 <form onSubmit={handleLogin} className="space-y-5">
                     
-             
                     <div className="space-y-1">
                         <label className="text-[10px] font-bold text-gray-500 tracking-widest uppercase">EMAIL</label>
                         <input 
@@ -129,13 +138,12 @@ export function Login() {
 
                
                 <div className="space-y-3">
-                    {/* Google */}
+                
                     <button type="button" onClick={() => handleSocialLogin('Google')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-red-500 text-xs font-bold">G</span>
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Google</span>
                     </button>
 
-                    {/* Apple */}
                     <button type="button" onClick={() => handleSocialLogin('Apple')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411]">
                             <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +153,6 @@ export function Login() {
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Apple</span>
                     </button>
 
-                    {/* Facebook */}
                     <button type="button" onClick={() => handleSocialLogin('Facebook')} className="w-full flex items-center py-3 px-4 border border-gray-800 rounded-xl bg-[#0b0411]/40 transition hover:border-gray-700">
                         <span className="w-8 h-8 flex items-center justify-center border border-gray-800 rounded-lg bg-[#0b0411] text-blue-500 text-xs font-bold">f</span>
                         <span className="flex-1 text-xs text-gray-400 font-bold tracking-wide ml-4 text-left">Continua con Facebook</span>
@@ -153,11 +160,12 @@ export function Login() {
                 </div>
 
                 <div className="text-center pt-2">
-                    <p className="text-xs text-gray-500">
-                        Non hai un account?{' '}
-                        <a href="#registrati" className="text-cyan-400 font-bold hover:underline transition-all">
-                            Registrati ora
-                        </a>
+                    <p className="text-xs text-gray-500 mt-4">
+                      Non hai ancora un account?{" "}
+   
+                       <Link to="/" className="text-cyan-400 hover:underline font-bold">
+                                Registrati qui
+                       </Link>
                     </p>
                 </div>
 
