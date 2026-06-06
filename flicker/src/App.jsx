@@ -6,7 +6,6 @@ import { StepProfilo } from "./servizi/username";
 import { StepPiattaforme } from "./servizi/piattaforme";
 import { StepGeneri } from "./servizi/generi";
 import { StepFilmCuore } from "./servizi/GiaVisti";
-
 import { FilmSerie } from "./servizi/FilmSerie";
 import { Navbar } from "./components/InterfacciaUtente/navbar";
 

@@ -1,6 +1,6 @@
 function Card({ title, image, vote, year }) {
   return (
-    <div className="w-38">
+    <div className="w-32 flex-shrink-0">
       <img
         src={image}
         alt={title}
