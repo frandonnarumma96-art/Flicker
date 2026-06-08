@@ -1,17 +1,13 @@
 import { useState } from "react";
-// Importa qui eventuali icone o altri componenti se li usi
 
-// 🌟 PASSO 1: Assicurati di accettare 'type' tra le props qui in alto!
+
 export default function Card({ title, image, vote, year, overview, duration, type }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Funzione per gestire il salvataggio nei preferiti/visti
     const gestisciSalvataggio = (lista) => {
         try {
             const listaEsistente = JSON.parse(localStorage.getItem(lista)) || [];
-            
-            // 🌟 PASSO 2: Controllo di sicurezza se 'type' per caso non viene passato
-            // Se non c'è, capiamo se è un film o una serie guardando se ha le proprietà tipiche
+          
             let tipoContenuto = type;
             if (!tipoContenuto) {
                 tipoContenuto = title ? "film" : "serie";
@@ -24,10 +20,10 @@ export default function Card({ title, image, vote, year, overview, duration, typ
                 year,
                 overview,
                 duration,
-                type: tipoContenuto // Salviamo il tipo sicuro
+                type: tipoContenuto 
             };
 
-            // Controlla se il titolo è già presente nella lista selezionata
+
             const giaPresente = listaEsistente.some((item) => item.title === title);
 
             if (!giaPresente) {
