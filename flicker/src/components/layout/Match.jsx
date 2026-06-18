@@ -12,8 +12,10 @@ export function Match() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [matchedMovie, setMatchedMovie] = useState(null);
     const [loading, setLoading] = useState(false);
+    
+    // 🌟 STATO PER LA DEMO: Conta quanti "Like" reali ha messo l'utente
+    const [likeCount, setLikeCount] = useState(0);
 
-  
     useEffect(() => {
         async function loadSessionMovies() {
             if (isJoined) {
@@ -54,20 +56,24 @@ export function Match() {
         if (movies.length === 0) return;
 
         if (direction === "like") {
-            
-            if (currentIndex === 2) {
+            // Incrementiamo il contatore dei like reali
+            const nextLikeCount = likeCount + 1;
+            setLikeCount(nextLikeCount);
+
+            // 🌟 TRUCCO PRESENTAZIONE: Al terzo "Like" salviamo il film e facciamo Match!
+            if (nextLikeCount === 3) {
                 setMatchedMovie(movies[currentIndex]);
-                return;
+                return; // Interrompe qui, mostrando la schermata di Match
             }
         }
         
+        // Se non è il terzo like, si procede normalmente con il catalogo
         if (currentIndex < movies.length - 1) {
             setCurrentIndex(prev => prev + 1);
         } else {
             alert("Hai finito i film! 🍿");
         }
     };
-
 
     if (matchedMovie) {
         return (
@@ -101,7 +107,6 @@ export function Match() {
             {/* Contenuto Principale */}
             <main className="flex-1 flex flex-col items-center justify-center px-6">
                 {!isJoined ? (
-                   
                     <div className="w-full max-w-sm space-y-8">
                         <div className="text-center space-y-2">
                             <div className="w-20 h-20 bg-purple-600/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -146,7 +151,6 @@ export function Match() {
                         </div>
                     </div>
                 ) : (
-                    
                     <div className="flex flex-col items-center justify-start w-full max-w-xs h-[480px]">
                         {/* Codice Stanza */}
                         <div className="text-center h-12 flex flex-col justify-center mb-2">

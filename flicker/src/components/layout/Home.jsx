@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { getPopularMovies, getPopularTV, getImageUrl } from "../../api/tmdb";
-import { Navbar } from "../InterfacciaUtente/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 export function Home() {
+    const navigate = useNavigate(); 
     const [nuoviFilm, setNuoviFilm] = useState([]);
     const [nuoveSerie, setNuoveSerie] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,7 +12,6 @@ export function Home() {
         async function caricaDatiHome() {
             try {
                 setLoading(true);
-              
                 const [movies, tvShows] = await Promise.all([
                     getPopularMovies(),
                     getPopularTV()
@@ -28,24 +27,13 @@ export function Home() {
         }
 
         caricaDatiHome();
-    } 
-    , []);
+    }, []);
 
     return (
-       <div className="min-h-screen bg-[#06000c] text-white pb-24 font-sans select-none">
+      
+        <div className="text-white font-sans select-none">
             
-            <header className="p-6 border-b border-gray-900/50 flex justify-between items-center sticky top-0 bg-[#06000c]/80 backdrop-blur-md z-40">
-                <h1 
-                    onClick={() => navigate("/home")} 
-                    className="text-2xl font-black tracking-widest text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] cursor-pointer active:scale-95 transition-transform"
-                >
-                    FLICKER
-                </h1>
-                <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-sm">
-                    🍿
-                </div>
-            </header>
-
+          
             {loading ? (
                 <div className="flex flex-col items-center justify-center h-[60vh] gap-3">
                     <div className="w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
@@ -54,10 +42,10 @@ export function Home() {
             ) : (
                 <div className="space-y-8 mt-4">
                     
-                    
+                    {/* SEZIONE FILM */}
                     <section className="space-y-3">
                         <h2 className="text-sm font-black tracking-widest uppercase text-gray-400 px-6">
-                             I Nuovi Film più Popolari
+                            I Nuovi Film più Popolari
                         </h2>
                        
                         <div className="flex gap-4 overflow-x-auto px-6 pb-4 scrollbar-none snap-x">
@@ -86,10 +74,10 @@ export function Home() {
                         </div>
                     </section>
 
-                    
+                    {/* SEZIONE SERIE TV */}
                     <section className="space-y-3">
                         <h2 className="text-sm font-black tracking-widest uppercase text-gray-400 px-6">
-                             Le Serie TV del Momento
+                            Le Serie TV del Momento
                         </h2>
                         <div className="flex gap-4 overflow-x-auto px-6 pb-4 scrollbar-none snap-x">
                             {nuoveSerie.map((serie) => (
@@ -120,8 +108,6 @@ export function Home() {
                 </div>
             )}
 
-            
-            <Navbar />
         </div>
     );
 }
